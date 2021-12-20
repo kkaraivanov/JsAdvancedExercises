@@ -16,5 +16,17 @@ function solve() {
     tBody.appendChild(tRow(x))
   )
 
+  const buyOnClick = () => {
+    let inputArr = Array.from(tBody.querySelectorAll("input[type=checkbox]:checked"))
+    .map(x => Array.from(x.parentNode.parentNode.children).slice(1, 4)
+    .map(x => Number(x.children[0].innerHTML) || x.children[0].innerHTML));
+    let sum = arr => arr.reduce((a, v) => a + v, 0);
+    let name = inputArr.map(x => x[0]).join(", ");
+    let price = sum(inputArr.map(x => x[1]));
+    let average = sum(inputArr.map(x => x[2])) / inputArr.length;
+    output.value = `Bought furniture: ${name}\r\nTotal price: ${price.toFixed(2)}\r\nAverage decoration factor: ${average}`;
+  }
+
   generateBtn.addEventListener('click', generateOnClick);
+  buyBtn.addEventListener('click', buyOnClick);
 }
