@@ -1,41 +1,40 @@
-function diagonalAttack(inputArr){
-    let matrix = inputArr.map(r => r.split(' ').filter(x => x != '').map(Number));
-    let sum = {left: 0, right: 0};
-    if(matrix.length != matrix[0].length) print(matrix);
-
-    for (let row = 0; row < matrix.length; row++) {
-        sum.left += matrix[row][row];
-        sum.right += matrix[row][matrix.length - 1 - row];
+function diagonalAttack(args) {
+    const matrix = args.map(x => x.split(' ').filter(x => x != '').map(Number));
+    if (matrix.length != matrix[0].length) {
+        return matrix.map(x => x.join(' ')).join('\n');
     }
 
-    if(sum.left === sum.right) setNewElement(matrix, sum.left);
-    print(matrix);
+    let l = 0, r = 0;
+    for (let row = 0; row < matrix.length; row++) {
+        l += matrix[row][row];
+        r += matrix[row][matrix.length - row - 1];
+    }
 
-    function setNewElement(matrix, elements) {
-        for (let row = 0; row < matrix.length; row++) {
+    return l === r
+            ? print(change(matrix, r))
+            : print(matrix);
 
-            for (let col = 0; col < matrix[row].length; col++) {
-
-                if (row != col && row != matrix.length - 1 - col) {
-                    matrix[row][col] = elements;
+    function change(m, n) {
+        for (let r = 0; r < m.length; r++) {
+            for (let c = 0; c < m[r].length; c++) {
+                if(r != c && r != m.length - 1 - c){
+                    m[r][c] = n;
                 }
             }
         }
 
-        return matrix;
+        return m;
     }
 
-    function print(matrix) {
-        matrix.forEach(row => console.log(row.join(' ')));
+    function print(m) {
+        return m.map(x => x.join(' ')).join('\n');
     }
 }
 
-diagonalAttack(
-    [
-        '5 3 12 3 1',
+console.log(diagonalAttack(
+    ['5 3 12 3 1',
         '11 4 23 2 5',
         '101 12 3 21 10',
         '1 4 5 2 2',
-        '5 22 33 11 1'
-    ]
-);
+        '5 22 33 11 1']
+))

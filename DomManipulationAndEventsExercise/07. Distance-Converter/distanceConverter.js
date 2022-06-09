@@ -1,8 +1,6 @@
 function attachEventsListeners() {
-    const inputDistance = document.getElementById('inputDistance');
-    const inputUnits = document.getElementById('inputUnits');
-    const outputDistance = document.getElementById('outputDistance');
-    const outputUnits = document.getElementById('outputUnits');
+    const [input, output] = document.querySelectorAll('input[type=text]')
+    const [inputs, outputs] = document.querySelectorAll('select')
     const values = {
         km: 1,
         m: 1000,
@@ -13,4 +11,16 @@ function attachEventsListeners() {
         ft: 3280.84,
         in: 39370.1,
     }
+    const convert = (x, y, str) => {
+        let obj = {
+            '/': (a, b) => a / b,
+            '*': (a, b) => a * b
+        };
+        return obj[str](x, y);
+    }
+
+    document.getElementById('convert').addEventListener('click', () => {
+        [from, to, dist] = [inputs.value, outputs.value, input.value];
+        output.value = convert(convert(dist, values[from], '/'), values[to], '*')
+    })
 }

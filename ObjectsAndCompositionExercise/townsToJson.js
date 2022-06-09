@@ -1,20 +1,15 @@
-function townsToJson(input){
-    let pattern = /\s*\|\s*/;
-    let arr = [];
+function townsToJson(args) {
+    args.shift();
+    args = args.map(x => {
+        const [Town, la, lo] = x.split('|').map(a => a.trim()).filter(a => a.length > 0);
+        return { Town, Latitude: +((+la).toFixed(2)), Longitude: +((+lo).toFixed(2)) };
+    });
 
-    for(let l of input.splice(1)){
-        let obj = l.split(pattern);
-        arr.push(town(obj));
-    }
-
-    console.log(JSON.stringify(arr));
-
-    function town(arr){
-        return { Town: arr[1], Latitude: Number(Number(arr[2]).toFixed(2)), Longitude: Number(Number(arr[3]).toFixed(2))};
-    }
+    return JSON.stringify(args);
 }
 
-townsToJson(['| Town | Latitude | Longitude |',
-'| Sofia | 42.696552 | 23.32601 |',
-'| Beijing | 39.913818 | 116.363625 |']
-);
+console.log(townsToJson([
+    '| Town | Latitude | Longitude |',
+    '| Sofia | 42.696552 | 23.32601 |',
+    '| Beijing | 39.913818 | 116.363625 |']
+))

@@ -1,15 +1,10 @@
-function previousDay(year, month, day){
-    var date = new Date(year, month, day);
-    var dayInMilisecconds = 24 * 60 * 60 * 1000;
-    var previous = new Date(date.getTime() - dayInMilisecconds);
+function previousDay(...args){
+    const [y, m, d] = [...args];
+    const prev = new Date(new Date(y, m, d).getTime() - (24 * 60 * 60 * 1000));
 
-    if(day === 1){
-        lastDate = new Date(year, month + 1, 0).getDate();
-        return `${previous.getFullYear()}-${previous.getMonth()}-${lastDate}`;
-    }
-
-    return `${previous.getFullYear()}-${previous.getMonth()}-${previous.getDate()}`;
+    return d === 1 
+        ? `${prev.getFullYear()}-${prev.getMonth()}-${new Date(y, m + 1, 0).getDate()}`
+        : `${prev.getFullYear()}-${prev.getMonth()}-${prev.getDate()}`;
 }
 
-console.log(previousDay(2016, 9, 30));
-console.log(previousDay(2021, 3, 1));
+console.log(previousDay(2016, 10, 1));

@@ -1,17 +1,15 @@
-function greatestCommonDivisor(x, y){
-    if ((typeof x !== 'number') || (typeof y !== 'number')) 
-    return false;
+function gcd(x, y) {
+    if ((typeof x !== 'number') || (typeof y !== 'number'))
+        return false;
     x = Math.abs(x);
     y = Math.abs(y);
 
-    while(y){
-        var z = y;
+    while (y) {
+        const t = y;
         y = x % y;
-        x = z;
-    }
-
-    return x;
+        x = t;
+    };
+     return x;
 }
 
-console.log(greatestCommonDivisor(15, 5));
-console.log(greatestCommonDivisor(2154, 458));
+console.log(gcd(2154, 458))

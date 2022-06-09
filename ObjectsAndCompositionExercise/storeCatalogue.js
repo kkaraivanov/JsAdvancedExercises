@@ -1,31 +1,26 @@
-function storeCatalogue(input){
-    let obj = input.reduce((previous, current) => {
-        let [name, price] = current.split(':').map(x => x.trim());
-        let firstLet = name[0];
-
-        if (previous[firstLet]) {
-            previous[firstLet] = [...previous[firstLet], current];
-        } else {
-            previous[firstLet] = [current];
-        }
-
-        return previous;
-    }, {})
-
-    Object.keys(obj).sort().map(x => {
-        console.log(x);
-        obj[x].sort().map(p => {
-            console.log(`  ${p.split(' : ').join(': ')}`);
-        });
-    });
+function storeCatalogue(args) {
+    const obj = {};
+    args.forEach(l => {
+        const [prod, price] = l.split(' : ')
+        const c = prod[0];
+        if(obj.hasOwnProperty(c) == false){obj[c] = {}}
+        obj[c][prod] = +price;
+    })
+    
+    return Object.keys(obj).sort((x, y) => x.localeCompare(y)).map(l => {
+        return `${l}\r\n${Object.keys(obj[l]).sort((x, y) => x.localeCompare(y)).map(x => {
+            return `  ${x}: ${obj[l][x]}`;
+        }).join('\r\n')}`;
+    }).join('\r\n');
 }
 
-storeCatalogue(['Appricot : 20.4',
-'Fridge : 1500',
-'TV : 1499',
-'Deodorant : 10',
-'Boiler : 300',
-'Apple : 1.25',
-'Anti-Bug Spray : 15',
-'T-Shirt : 10']
-);
+console.log(storeCatalogue([
+    'Appricot : 20.4',
+    'Fridge : 1500',
+    'TV : 1499',
+    'Deodorant : 10',
+    'Boiler : 300',
+    'Apple : 1.25',
+    'Anti-Bug Spray : 15',
+    'T-Shirt : 10']
+))

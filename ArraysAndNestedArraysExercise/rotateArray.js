@@ -1,14 +1,18 @@
-function rotateArray(a, c){
-    let arr = a.map(x => x);
-    let count = c % a.length;
+function rotateArray(...args){
+    let [a, i] = [...args];
+    i = i % (a.length);
+    //a.push.apply(a, a.splice(0, i)); //left rotation
+    a = a.splice(-i).concat(a); //right rotation
     
-    while(count > 0){
-        arr.unshift(arr.pop());
-        count--;
-    }
-    
-    return arr.join(' ');
+    return a.join(' ');
 }
 
-console.log(rotateArray(['1', '2', '3', '4'], 2));
-console.log(rotateArray(['Banana', 'Orange', 'Coconut', 'Apple'], 15));
+console.log(rotateArray(['1', '2', '3', '4'], 2))
+
+// console.log(rotateArray([
+// 'Banana', 
+// 'Orange', 
+// 'Coconut', 
+// 'Apple'], 
+// 15
+// ))

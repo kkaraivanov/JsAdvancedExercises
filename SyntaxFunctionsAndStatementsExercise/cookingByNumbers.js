@@ -1,21 +1,26 @@
-function cookingByNumbers(a , b, c, d, e, f){
-    const input = [`${b}`, `${c}`, `${d}`, `${e}`, `${f}`];
-    let num = parseInt(a);
+function cbn(...args){
+    let num = [...args].slice(0, 1);
+    const c = [...args].slice(1);
 
-    const commands = (c, n) => {
-        if(c === 'chop') return n / 2;
-        if(c === 'dice') return Math.sqrt(n);
-        if(c === 'spice') return n + 1;
-        if(c === 'bake') return n * 3;
-        if(c === 'fillet') return n - (n * .20);
+    for (let i = 0; i < c.length; i++) {
+        const el = c[i];
+        num[i] = parseInt(cooking(i === 0 ? num[i] : num[i - 1], el))
     }
-        
-    for(let i = 0; i < input.length; i++){
-        let currentCommand = input[i];
-        num = commands(currentCommand, num);
-        console.log(num);
+
+    function cooking(n, c) {
+        const obj = {
+            chop: n / 2,
+            dice: Math.sqrt(n),
+            spice: n + 1,
+            bake: n * 3,
+            fillet: n - (n * .20)
+        }
+
+        n = obj[c];
+        return n;
     }
+    
+    return num.join('\n')
 }
 
-cookingByNumbers('32', 'chop', 'chop', 'chop', 'chop', 'chop');
-cookingByNumbers('9', 'dice', 'spice', 'chop', 'bake', 'fillet');
+console.log(cbn('32', 'chop', 'chop', 'chop', 'chop', 'chop'))

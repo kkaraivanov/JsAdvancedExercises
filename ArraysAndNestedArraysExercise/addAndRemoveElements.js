@@ -1,15 +1,18 @@
-function addAndRemoveElements(c){
-    let arr = new Array();
-    let counter = 0;
-
-    c.forEach(element => {
-        let i = counter;
-        element === 'add' ? arr.push(counter + 1) : arr.pop(i);
-        counter++;
+function are(args){
+    let c = 1;
+    const res = [];
+    
+    [...args].forEach(el => {
+        if(el === 'add'){
+            res.push(c);
+        }else{
+            res.pop(c)
+        }
+        c++;
     });
 
-    return arr.length === 0 ? 'Empty' : arr.join('\r\n');
+    if(res.length === 0){return 'Empty'}
+    return res.join('\r\n')
 }
 
-console.log(addAndRemoveElements(['add', 'add', 'add', 'add']));
-console.log(addAndRemoveElements(['add', 'add', 'remove', 'add', 'add']));
+console.log(are(['add', 'add', 'remove', 'add', 'add']))

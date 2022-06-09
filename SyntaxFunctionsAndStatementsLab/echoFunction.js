@@ -1,5 +1,5 @@
-function echoFunction(input){
-    return input.length + '\r\n' + input;
+function ef(args) {
+    return `${args.length}\n${args}`
 }
 
-console.log(echoFunction('Hello, JavaScript!'));
+console.log(ef('Hello, JavaScript!'))

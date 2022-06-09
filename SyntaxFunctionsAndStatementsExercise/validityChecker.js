@@ -1,20 +1,16 @@
-function validityChecker(x1, y1, x2, y2){
-    function checkIsValid(a, b, c = 0, d = 0){
-        let a1 = a - c;
-        let b1 = b - d;
-        let c1 = Math.sqrt(a1*a1 + b1*b1);
+function vc(...args) {
+    const [x1, y1, x2, y2] = [...args];
+    const check = (x1, y1, x2 = 0, y2 = 0) => {
+        let x = x1 - x2;
+        let y = y1 - y2;
+        let sqr = Math.sqrt(x*x + y*y);
 
-        if (Number.isInteger(c1)) {
-            console.log(`{${a}, ${b}} to {${c}, ${d}} is valid`);
-        } else {
-            console.log(`{${a}, ${b}} to {${c}, ${d}} is invalid`);
-        }
+        return Number.isInteger(sqr) 
+            ? `{${x1}, ${y1}} to {${x2}, ${y2}} is valid`
+            : `{${x1}, ${y1}} to {${x2}, ${y2}} is invalid`;
     }
-
-    checkIsValid(x1, y1);
-    checkIsValid(x2, y2);
-    checkIsValid(x1, y1, x2, y2);
+    
+    return [check(x1, y1), check(x2, y2), check(x1, y1, x2, y2)].join('\n');
 }
 
-validityChecker(3, 0, 0, 4);
-validityChecker(2, 1, 1, 1);
+console.log(vc(2, 1, 1, 1))

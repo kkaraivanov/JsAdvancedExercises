@@ -1,35 +1,28 @@
-function carFactory(obj){
-    let car = {
-        model: '',
-        engine: {power: 90, volume: 1800},
-        carriage: {type: '', color: ''},
-        wheels: []
+function carFactory(args) {
+    const engines = [
+        { power: 90, volume: 1800 },
+        { power: 120, volume: 2400 },
+        { power: 200, volume: 3500 }
+    ]
+    const carriages = [
+        { type: 'hatchback', color: args.color },
+        { type: 'coupe', color: args.color }
+    ]
+    const wheelsizes = args.wheelsize % 2 == 1 ? args.wheelsize : args.wheelsize - 1;
+
+    return {
+        model: args.model,
+        engine: engines.filter(x => x.power >= args.power)[0],
+        carriage: carriages.filter(x => x.type == args.carriage)[0],
+        wheels: [wheelsizes, wheelsizes, wheelsizes, wheelsizes]
     }
-
-    const makeCar = (prop) => {
-        car.model = prop.model;
-        car.carriage.type = prop.carriage;
-        car.carriage.color = prop.color;
-        car.engine = power(prop.power);
-        for (let i = 0; i < 4; i++){
-            if(prop.carriage === 'coupe') car.wheels[i] = prop.wheelsize;
-            else car.wheels[i] = prop.wheelsize - 1;
-        }
-
-        function power(p){
-            if(p <= 90) return { power: 90, volume: 1800 };
-            if(p > 90 && p <= 120) return { power: 120, volume: 2400 };
-            if(p > 120) return { power: 200, volume: 3500 };
-        }
-    }
-
-    makeCar(obj);
-    return car;
 }
 
-console.log(carFactory({ model: 'VW Golf II',
-power: 90,
-color: 'blue',
-carriage: 'hatchback',
-wheelsize: 14 }
+console.log(carFactory({
+    model: 'VW Golf II',
+    power: 90,
+    color: 'blue',
+    carriage: 'hatchback',
+    wheelsize: 14
+}
 ));

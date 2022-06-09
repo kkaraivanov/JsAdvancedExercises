@@ -1,35 +1,31 @@
-function lowestPricesInCities(input){
-    let map = new Map();
-
-    for(let line of input) {
-        let [town, product, price] = line.split(" | ");
-        price = Number(price);
-
-        if(!map.has(product)) {
-            map.set(product, new Map());
+function lowestPricesInCities(args) {
+    const obj = {};
+    const res = [];
+    for (const line of args) {
+        const [town, product, price] = line.split(' | ');
+        if(!obj.hasOwnProperty(product)) {
+            obj[product] = {town, price: +price}
+        }else {
+            if(obj[product].price > +price) {
+                obj[product] = {town, price: +price}
+            }
         }
-
-        map.get(product).set(town, price);
     }
 
-    map.forEach((m, p) => {
-        let lp = Number.POSITIVE_INFINITY;
-        let towns = "";
-        m.forEach((price, town) => {
-            if(price < lp){
-                lp = Math.min(lp, price);
-                towns = town;
-            }
-        });
-        console.log(`${p} -> ${lp} (${towns})`);
+    Object.keys(obj).forEach(e => {
+        res.push(`${e} -> ${obj[e].price} (${obj[e].town})`)
     });
+
+    return res.join('\r\n');
 }
 
-lowestPricesInCities(['Sample Town | Sample Product | 1000',
-'Sample Town | Orange | 2',
-'Sample Town | Peach | 1',
-'Sofia | Orange | 3',
-'Sofia | Peach | 2',
-'New York | Sample Product | 1000.1',
-'New York | Burger | 10']
-);
+console.log(lowestPricesInCities([
+    'Sample Town | Sample Product | 1000',
+    'Sample Town | Orange | 2',
+    'Sample Town | Peach | 1',
+    'Sofia | Orange | 3',
+    'Sofia | Peach | 2',
+    'New York | Sample Product | 1000.1',
+    'New York | Burger | 10'
+]
+));

@@ -1,25 +1,13 @@
 function addItem() {
-    const elements = {
-        menu: document.getElementById('menu'),
-        text: document.getElementById('newItemText'),
-        value: document.getElementById('newItemValue'),
-    }
-    
-    function addOption(text, value){
-        let option = document.createElement("option");
-        option.textContent = text;
-        option.value = value;
-
-        elements.menu.appendChild(option);
-    }
-
-    function clear(){
-        elements.text.value = null;
-        elements.value.value = null
-    }
-
-    if(elements.text.value !== null && elements.value.value !== null){
-        addOption(elements.text.value, elements.value.value);
-        clear();
+    const text = document.querySelector('#newItemText');
+    const value = document.querySelector('#newItemValue');
+    const menu = document.querySelector('select')
+    const option = document.createElement('option');
+    if (text.value != '' && value.value != '') {
+        option.value = value.value;
+        option.text = text.value;
+        menu.appendChild(option);
+        text.value = '';
+        value.value = '';
     }
 }

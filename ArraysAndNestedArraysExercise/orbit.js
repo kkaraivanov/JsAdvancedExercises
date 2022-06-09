@@ -1,24 +1,22 @@
-function orbit(input){
-    print(matrix(input));
+function orbit(args){
+    return print(makeOrbit(args));
+    function makeOrbit(arr) {
+        const m = [];
+        const [r, c, sR, sC] = [...arr];
 
-    function matrix(matrix){
-        let m = [];
-        [rows, cols] = [matrix[0], matrix[1]];
-        [startR, startC] = [matrix[2], matrix[3]];
-
-        for (let row = 0; row < rows; row++) {
+        for (let row = 0; row < r; row++) {
             m[row] = [];
-            for (let col = 0; col < cols; col++) {
-                m[row][col] = 1 + Math.max(Math.abs(startR - row), Math.abs(startC - col));
-            }
+            for (let col = 0; col < c; col++) {
+                const max = Math.max(Math.abs(sR - row), Math.abs(sC - col));
+                m[row][col] = 1 + max;       
+            }            
         }
 
         return m;
     }
-
-    function print(matrix) {
-        matrix.forEach(row => console.log(row.join(' ')));
+    function print(m) {
+        return m.map(x => x.join(' ')).join('\n');
     }
 }
 
-orbit([5, 5, 2, 2])
+console.log(orbit([4, 4, 0, 0]))

@@ -1,49 +1,49 @@
-function janNotation(input){
-    const result = {
-        error: false,
-        operands: [],
-        checkSize(){this.operands.length < 2 ? this.error = true : false},
-        add(s){this.operands.push(s)},
-        makeOperation(opr){
-            let s = this.operands.splice(-2);
-            this.add(operations(...s, opr));
-        },
-        print(){
-            !this.error ? this.operands.length === 1 ? console.log(...this.operands) : console.log('Error: too many operands!') : console.log('Error: not enough operands!'); 
-        }
-    }
-
-    input.forEach(element => {
-        if(typeof element == 'number'){
-            result.add(Number(element))
-        }
-        else{
-            if(result.checkSize()){
-                return;
-            }else{
-                result.makeOperation(element);
-            }
-        }
-    });
-
-    result.print();
-    
-    function operations(...args) {
-        let [x, y, opr] = args
-        let methods = {
+function janNotation(args) {
+    function calc(...args) {
+        const [x, y, o] = args;
+        const opr = {
             '+': (x, y) => +x + +y,
             '-': (x, y) => x - y,
             '/': (x, y) => x / y,
             '*': (x, y) => x * y
         }
 
-        return methods[opr](x, y);
+        return opr[o](x, y);
     }
+
+    const notation = {
+        error: false,
+        arr: [],
+        sizeIsNotValid() { return this.arr.length < 2 ? this.error = true : false },
+        add(e) { this.arr.push(e) },
+        notate(o) {
+            let x = this.arr.splice(-2);
+            this.add(calc(...x, o));
+        },
+        print() {
+            return !this.error
+                ? this.arr.length === 1
+                    ? this.arr[0]
+                    : 'Error: too many operands!'
+                : 'Error: not enough operands!'
+        }
+    }
+
+    args.forEach(e => {
+        if(typeof e == 'number') notation.add(+e);
+        else {
+            if(notation.sizeIsNotValid()) return;
+            else notation.notate(e);
+        }
+    });
+
+    return notation.print();
 }
 
-janNotation([5,
-    3,
-    4,
-    '*',
-    '-']
-   );
+console.log(janNotation([
+    15,
+    //3,
+    //4,
+    //'*',
+    '/']
+))

@@ -1,23 +1,18 @@
 function create(words) {
-   const elements = [];
-   const output = document.getElementById("content");
-
-   function createElement(tag, content = ""){
-      let element = document.createElement(tag);
-      element.innerHTML = content;
-
-      return element;
+   const cont = document.getElementById('content');
+   const cssClass = 'content-container';
+   [...words].forEach(x => {
+      const p = document.createElement('p');
+      p.style.display = 'none';
+      p.textContent = x;
+      const div = document.createElement('div');
+      div.className = cssClass;
+      div.appendChild(p)
+      div.addEventListener('click', onClick);
+      cont.appendChild(div);
+   })
+   function onClick(e) {
+      const p = e.target.children[0];
+      p.style.display === 'none' ? p.style.display = 'block' : p.style.display =  'none';
    }
-
-   words.forEach(element => {
-      let div = createElement('div');
-      let p = createElement('p', element);
-      p.style.display = "none"
-
-      div.appendChild(p);
-      div.addEventListener("click", () => (p.style.display = "block"));
-      elements.push(div);
-   });
-   
-   elements.forEach(element => output.appendChild(element));
 }

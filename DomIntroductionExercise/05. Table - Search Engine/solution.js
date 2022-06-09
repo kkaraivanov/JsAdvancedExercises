@@ -1,24 +1,19 @@
 function solve() {
    document.querySelector('#searchBtn').addEventListener('click', onClick);
-   
+   const selectCss = 'select';
+
    function onClick() {
       const searchField = document.getElementById('searchField');
       const table = [...document.querySelector('.container tbody').getElementsByTagName('tr')];
-      const markCss = 'select';
-      let markCssExist = document.querySelector(`.${markCss}`) !== null;
+      let selectExist = document.querySelector(`.${selectCss}`) !== null;
       let fildIsEmpty = searchField.value.trim().match(/^ *$/) === null;
-      
-      if(fildIsEmpty && markCssExist){
-         refresh(searchField, table)
-      }else{
-         for(let row of table){
-            let [col1, col2, col3] = row.getElementsByTagName('td');
-            let c1 = equal(col1.textContent, searchField.value),
-               c2 = equal(col2.textContent, searchField.value),
-               c3 = equal(col3.textContent, searchField.value);
-            
-            if(c1 || c2 || c3){
-               row.classList.add(markCss);
+
+      if(selectExist && fildIsEmpty){
+         refresh(searchField, table);
+      }else {
+         for (const row of table) {
+            if(isEqual(row, searchField)) {
+               row.classList.add(selectCss);
             }
          }
       }
@@ -29,11 +24,20 @@ function solve() {
       return String(word).includes(search);
    }
 
+   function search(c, s){
+      return equal(c.textContent, s.value);
+   }
+
+   function isEqual(row, fild){
+      let [a, b, c] = row.getElementsByTagName('td');
+      return search(a, fild) || search(b, fild) || search(c, fild)
+   }
+
    function refresh(...elements){
       let [field, table] = elements;
       field.value = '';
       for(let row of table){
-         row.classList.remove('select');
+         row.classList.remove(selectCss);
       }
    }
 }

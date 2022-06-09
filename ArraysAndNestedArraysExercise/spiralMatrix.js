@@ -1,31 +1,33 @@
-function spiralMatrix(a, b){
-    print(spiral(a, b));
-
-    function spiral(r, c) {
-        let [count, counter, startRow, startCol, endRow, endCol] = [0, r * c, 0, 0, r-1, c - 1];
-        let result = [];
-        for (let row = 0; row < r; row++) result[row] = [];
-
-        while (count < counter) {
-            for (let col = startCol; col <= endCol; col++) result[startRow][col] = ++count;
-            startRow++;
-
-            for (let row = startRow; row <= endRow; row++) result[row][endCol] = ++count;
-            endCol--;
-
-            for (let col = endCol; col >= startCol; col--) result[endRow][col] = ++count;
-            endRow--;
-
-            for (let row = endRow; row >= startRow; row--) result[row][startCol] = ++count;
-            startCol++;
-        }
-    
-        return result;
-      }
-
-    function print(matrix) {
-        matrix.forEach(row => console.log(row.join(' ')));
+function spiralMatrix(row, col) {
+    let [count, counter, sR, sC, eR, eC] = [0, row * col, 0, 0, row - 1, col - 1];
+    let res = [];
+    for (let r = 0; r < row; r++) {
+        res[r] = [];
     }
+
+    while (count < counter) {
+        for (let c = sC; c <= eC; c++) {
+            res[sR][c] = ++count;
+        }
+        sR++;
+
+        for (let r = sR; r <= eR; r++) {
+            res[r][eC] = ++count;
+        }
+        eC--;
+
+        for (let c = eC; c >= sC; c--) {
+            res[eR][c] = ++count;
+        }
+        eR--;
+
+        for (let r = eR; r >= sR; r--) {
+            res[r][sC] = ++count;
+        }
+        sC++;
+    }
+    
+    return res.map(x => x.join(' ')).join('\n');
 }
 
-spiralMatrix(5, 5);
+console.log(spiralMatrix(5, 5))

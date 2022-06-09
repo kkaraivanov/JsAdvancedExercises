@@ -1,10 +1,15 @@
-function stringLength(a, b, c){
-    const arr = [`${a}`, `${b}`, `${c}`,];
-    let arrSum = arr.map(c => {return c.length}).reduce((x, y) => x + y, 0);
-    let average = arr.reduce((x, y, i, ar) => Math.floor(x + y.length / ar.length), 0);
-
-    return `${arrSum}\r\n${average}`;
+function sl(...args) {
+    return`${[...args].map(x => {
+        return x.length
+    }).reduce(sum, 0)}\r\n${Math.floor([...args].reduce(average, 0))}`;
+    
+    function sum(x, y){
+        return x + y;
+    }
+    
+    function average(x, y, index, arr){
+        return x + y.length / arr.length
+    }
 }
 
-console.log(stringLength('chocolate', 'ice cream', 'cake'));
-console.log(stringLength('pasta', '5', '22.3'));
+console.log(sl('chocolate', 'ice cream', 'cake'));

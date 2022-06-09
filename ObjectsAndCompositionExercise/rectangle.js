@@ -1,10 +1,16 @@
 function rectangle(w, h, c){
-    return {
-        width: Number(w),
-        height: Number(h),
-        color: c,
-        calcArea() {return this.width * this.height}
+    class Rectangle{
+        constructor(w, h, c){
+            this.width = w;
+            this.height = h;
+            this.color = c[0].toUpperCase() + c.slice(1);
+        }
+        calcArea(){
+            return this.width * this.height;
+        }
     }
+
+    return new Rectangle(w, h, c)
 }
 
 let rect = rectangle(4, 5, 'red');

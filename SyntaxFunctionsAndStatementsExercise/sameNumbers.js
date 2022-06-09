@@ -1,18 +1,9 @@
-function sameNumbers(number){
-    var firstNum = number % 10;
-    var isSame = true;
-    var sum = 0;
+function sn(x) {
+    const a = Array.from(String(x));
+    const sum = a.reduce((a, b) => Number(a) + Number(b), 0);
+    const isEqual = a.every((v, i, arr) => v === arr[0]);
     
-    while(number){
-        if(number % 10 !== firstNum) {
-            isSame = false;
-        }
-        sum += number % 10;
-        number = Math.floor(number / 10);
-    }
-
-    return `${isSame} \r\n ${sum}`;
+    return isEqual ? `true \n${sum}` : `false \n${sum}`;
 }
 
-console.log(sameNumbers(2222222));
-console.log(sameNumbers(1234));
+console.log(sn(2222222))

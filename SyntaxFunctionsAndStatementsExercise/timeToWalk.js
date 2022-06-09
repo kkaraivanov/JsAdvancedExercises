@@ -1,31 +1,28 @@
-function timeToWalk(first, second, third){
-    let metersToUnevirsity = first * second;
-    let meterPerSeccond = third / 3.6;
-    let needTime = metersToUnevirsity / meterPerSeccond;
-    let additionalTime = Math.floor(metersToUnevirsity / 500);
-
-    let hours = Math.floor(needTime / 3600);
-    let minutes = Math.floor((needTime - (hours * 3600)) / 60);
-    let seconds = (needTime - (hours * 3600) - (minutes * 60)).toFixed(0);
+function ttw(...args) {
+    const [x, y, z] = [...args];
+    const aTime = Math.floor((x * y) / 500);
+    const time = ((x * y) / (z / 3.6));
+    let h = Math.floor(time / 3600);
+    let m = Math.floor((time - (h * 3600)) / 60);
+    let s = (time - (h * 3600) - (m * 60)).toFixed(0);
     const addZero = (obj) => {
         return obj < 10 ? '0' + obj : obj;
     }
-
-    if(additionalTime > 59){
-        let addHour = Math.floor(additionalTime / 60);
-        let remainingMinutes = additionalTime -addHour * 60;
-        hours += addHour;
-        minutes += remainingMinutes;
+    if(aTime > 59){
+        let addHour = Math.floor(aTime / 60);
+        let remainingMinutes = aTime -addHour * 60;
+        h += addHour;
+        m += remainingMinutes;
     }else{
-        minutes += additionalTime;
+        m += aTime;
     }
 
-    hours = addZero(hours);
-    minutes = addZero(minutes);
-    seconds = addZero(seconds);
+    h = addZero(h);
+    m = addZero(m);
+    s = addZero(s);
 
-    return `${hours}:${minutes}:${seconds}`;
+    return `${h}:${m}:${s}`;
 }
 
-console.log(timeToWalk(2564, 0.70, 5.5));
-console.log(timeToWalk(4000, 0.60, 5));
+console.log(ttw(2564, 0.70, 5.5));
+// console.log(ttw(4000, 0.60, 5));

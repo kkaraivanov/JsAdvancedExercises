@@ -1,13 +1,14 @@
-function calorieObject(input){
-    let calories = {};
-    
-    for (let x = 0; x < input.length; x += 2) {
-        const prop = input[x];
-        const value = input[x + 1];
-        calories[prop] = parseInt(value);
-    }
+function calorieObject(args){
+    const obj = {};
+    args.forEach((x, i) => {
+        if(i % 2 === 0){
+            if(!obj.hasOwnProperty(x)){
+                obj[x] = +args[i + 1];
+            }
+        }
+    });
 
-    console.log(calories);
+    return obj;
 }
 
-calorieObject(['Potato', '93', 'Skyr', '63', 'Cucumber', '18', 'Milk', '42'])
+console.log(calorieObject(['Yoghurt', '48', 'Rise', '138', 'Apple', '52']));

@@ -1,8 +1,8 @@
-function listOfNames(a){
-    let i = 1;
-    arr = Array.from(a).sort().map(x => `${i++}.${x}`);
-
-    return arr.join('\r\n');
+function listOfNames(args){
+    args.sort((a, b) => a.localeCompare(b)).forEach(function(el, i) {
+        this[i] = `${++i}.${el}`;
+      }, args);
+    return args.join('\r\n')
 }
 
-console.log(listOfNames(["John", "Bob", "Christina", "Ema"]));
+console.log(listOfNames(["John", "Bob", "Christina", "Ema"]))
