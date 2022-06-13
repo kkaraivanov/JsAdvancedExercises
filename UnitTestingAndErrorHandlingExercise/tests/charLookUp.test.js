@@ -20,4 +20,7 @@ describe('Test lookupChar function', () => {
     it('Hi with index 0 should by return H', () => {
         expect(lookupChar('Hi', 0)).to.equal('H');
     })
+    it('Hi with index 1 should by return H', () => {
+        expect(lookupChar('Hi', 1)).to.equal('i');
+    })
 })
