@@ -1,13 +1,11 @@
 class Hex {
-    #hex
     constructor(v){
-        this.value = v,
-        this.#hex = '0x' + v.toString(16).toUpperCase();
+        this.value = v
     }
     valueOf = () => this.value
-    toString = () => this.#hex
-    plus = (num) => typeof num == 'number' ? new Hex(this.value + num) : typeof num == 'object' ? new Hex(this.value + num.value) : undefined
-    minus = (num) => typeof num == 'number' ? new Hex(this.value - num) : typeof num == 'object' ? new Hex(this.value - num.value) : undefined
+    toString = () => '0x' + this.value.toString(16).toUpperCase();
+    plus = (num) => typeof num == 'number' ? new Hex(this.value + Number(num)) : typeof num == 'object' ? new Hex(this.value + Number(num.value)) : undefined
+    minus = (num) => typeof num == 'number' ? new Hex(this.value - Number(num)) : typeof num == 'object' ? new Hex(this.value - Number(num.value)) : undefined
     parse = (str) => parseInt(str, 16);
 }
 
