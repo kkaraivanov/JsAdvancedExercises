@@ -5,15 +5,14 @@ function engineeringCompany(args) {
     args.forEach(e => {
         const [carBrand, carModel, producedCars] = e.split(' | ');
         if (!brands.hasOwnProperty(carBrand)) brands[carBrand] = {};
-        if (!brands[carBrand].hasOwnProperty(carModel)) {
-            brands[carBrand][carModel] = 0;
-        }
+        if (!brands[carBrand].hasOwnProperty(carModel)) brands[carBrand][carModel] = 0;
+
         brands[carBrand][carModel] += +producedCars;
     });
 
     return Object.keys(brands)
-        .map(e => e + '\n' + Object.keys(brands[e])
-            .map(x => `###${x} -> ${brands[e][x]}`).join('\n'))
+        .map(e => e + '\n' + Object.entries(brands[e])
+            .map(x => `###${x[0]} -> ${x[1]}`).join('\n'))
         .join('\n')
 }
 
