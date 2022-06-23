@@ -22,7 +22,9 @@ function solve() {
         })
     }
     
-    document.querySelector('#completed-orders .clear-btn').addEventListener('click', clear)
+    document.querySelector('#completed-orders .clear-btn').addEventListener('click', (e) => {
+        [...Array.from(e.target.parentElement.querySelectorAll('.container'))].forEach(e => e.remove())
+    })
     document.querySelector('form button').addEventListener('click', onSubmit);
 
     function onSubmit(e){
@@ -32,9 +34,5 @@ function solve() {
         const div = document.createElement('div');
         div.makeSendElement(inputs, document.getElementById('completed-orders'))
         received.appendChild(div)
-    }
-    function clear(e){
-        const obj = Object.assign(Array.from(e.target.parentElement.querySelectorAll('.container')));
-        Object.values(obj).forEach(e => e.remove())
     }
 }
