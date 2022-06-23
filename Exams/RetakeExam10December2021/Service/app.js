@@ -17,11 +17,11 @@ function solve() {
             this.children[4].disabled = false;
         });
         this.children[4].addEventListener('click', () => {
-            this.children[3].remove();
-            this.children[3].remove();
+            [...this.children].forEach((e, i) => {if(i >= 3) e.remove()})
             moveTo.appendChild(this);
         })
     }
+    
     document.querySelector('#completed-orders .clear-btn').addEventListener('click', clear)
     document.querySelector('form button').addEventListener('click', onSubmit);
 
