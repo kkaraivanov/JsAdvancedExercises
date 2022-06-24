@@ -1,7 +1,7 @@
 window.addEventListener("load", solve);
 
 function solve() {
-  HTMLLIElement.prototype.createPost = function (obj) {
+  function createPost(obj) {
     const [title, category, content] = [...Object.values(obj)]
     this.className = 'rpost';
     this.innerHTML = `<article>
@@ -12,6 +12,7 @@ function solve() {
     <button class="action-btn edit">Edit</button>
     <button class="action-btn approve">Approve</button>`
     Object.values(obj).forEach(e => e.value = '')
+    return this
   }
   const input = {
     title: document.getElementById('post-title'),
@@ -34,9 +35,8 @@ function solve() {
     if (title == '' || category == '' || content == '') {
       return;
     }
-
-    const post = document.createElement('li');
-    post.createPost(input)
+    
+    const post = createPost.call(document.createElement('li'), input)
     lists.review.appendChild(post)
 
     const editBtn = post.querySelector('.edit');

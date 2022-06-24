@@ -3,7 +3,8 @@ window.addEventListener('load', solve);
 function solve() {
     const inputs = Object.assign(Array.from(document.querySelector('form').children).filter(e => e.tagName != 'LABEL' && e.tagName != 'BUTTON'));
     const received = document.getElementById('received-orders');
-    HTMLElement.prototype.makeSendElement = function(obj, moveTo){
+    function makeSendElement (obj, moveTo){
+        console.log(this)
         const [productType, descriprion, name, phone] = [...Object.values(obj).map(e => e.value)]
         this.className = 'container';
         this.innerHTML = `<h2>Product type for repair: ${productType}</h2>
@@ -32,7 +33,7 @@ function solve() {
         const isEmpty = Object.values(inputs).filter(e => e.value != '').length === 4
         if(!isEmpty) return
         const div = document.createElement('div');
-        div.makeSendElement(inputs, document.getElementById('completed-orders'))
+        makeSendElement.call(div, inputs, document.getElementById('completed-orders'))
         received.appendChild(div)
     }
 }

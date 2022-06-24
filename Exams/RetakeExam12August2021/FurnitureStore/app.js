@@ -8,7 +8,7 @@ function solve() {
         price: document.getElementById('price')
     }
     const table = document.getElementById('furniture-list');
-    HTMLElement.prototype.addToTable = function(obj){
+    function addToTable(obj){
         const [model, year, description, price] = [...Object.values(obj).map(e => e.value)];
         const row = document.createElement('tr')
         const hidenRow = document.createElement('tr')
@@ -50,6 +50,6 @@ function solve() {
         const isEmpty = !(!Object.values(input).filter(e => e.value == '').length);
         const isNumber = Number(input['year'].value) > 0 && Number(input.price.value)
         if(isEmpty || !isNumber) return
-        table.addToTable(input);
+        addToTable.call(table, input);
     });
 }
