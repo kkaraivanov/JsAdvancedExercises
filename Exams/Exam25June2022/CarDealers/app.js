@@ -36,8 +36,9 @@ function solve() {
       this.remove()
     });
     this.lastElementChild.children[1].addEventListener('click', () => {
-      const price = Number(this.children[5].textContent) - Number(this.children[4].textContent)
-      const li = sellCar.call(document.createElement('li'), this.children[0].textContent, this.children[1].textContent, this.children[2].textContent, price);
+      const [make, model, year,, originalCost, sellingPrice] = [...this.children].map(e => e.textContent);
+      const price = Number(sellingPrice) - Number(originalCost)
+      const li = sellCar.call(document.createElement('li'), make, model, year, price);
       const profitPrice = Number(profit.textContent) + price;
       document.getElementById('cars-list').appendChild(li);
       profit.textContent = profitPrice.toFixed(2)
