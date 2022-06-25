@@ -42,20 +42,19 @@ class SmartHike {
         if (this.listOfHike.length === 0) {
             return `${this.username} has not done any hiking yet`
         }
+        
         let hiks = [];
         if (criteria != 'all') {
             hiks = this.listOfHike.filter(e => e.difficultyLevel == criteria).sort((x, y) => x.time - y.time)
             if (hiks.length === 0) return `${this.username} has not done any ${criteria} hiking yet`
 
             return `${this.username}'s best ${criteria} hike is ${hiks[0].peak} peak, for ${hiks[0].time} hours`
-        }else {
-            hiks = this.listOfHike.map(e => `${this.username} hiked ${e.peak} for ${e.time} hours`)
+        }
+
+        hiks = this.listOfHike.map(e => `${this.username} hiked ${e.peak} for ${e.time} hours`)
             return [
                 `All hiking records:`,
                 hiks.join('\n')
             ].join('\n')
-        }
-        
-        return 'Test'
     }
 }

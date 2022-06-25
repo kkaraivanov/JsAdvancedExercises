@@ -13,24 +13,22 @@ function solve() {
   const profit = document.getElementById('profit')
 
   document.getElementById('publish').addEventListener('click', onPublish)
-  function onPublish(e){
+  function onPublish(e) {
     e.preventDefault()
     const isNotEmpty = Object.values(inputs).filter(e => e.value != '').length === 6
     const priceIsValid = Number(inputs.originalCost.value) < Number(inputs.sellingPrice.value)
-    if(!isNotEmpty || !priceIsValid) return
+    if (!isNotEmpty || !priceIsValid) return
     const row = publish.call(document.createElement('tr'), inputs)
     table.appendChild(row)
   }
 
-  function publish(obj){
-    const [make, model, year, fuel, originalCost, sellingPrice] = Object.values(obj)
-    console.log(make.value)
+  function publish(obj) {
     this.clasName = 'row';
     this.innerHTML = `${Object.values(obj).map(e => `<td>${e.value}</td>`).join(' ')}
-    <td>
-      <button class='action-btn edit'>Edit</button>
-      <button class='action-btn sell'>Sell</button>
-    </td>`
+      <td>
+        <button class='action-btn edit'>Edit</button>
+        <button class='action-btn sell'>Sell</button>
+      </td>`
     Object.values(obj).forEach(v => v.value = '');
 
     this.lastElementChild.children[0].addEventListener('click', () => {
@@ -48,11 +46,11 @@ function solve() {
     return this
   }
 
-  function sellCar(make, model, year, price){
+  function sellCar(make, model, year, price) {
     this.className = 'each-list'
     this.innerHTML = `<span>${make} ${model}</span>
       <span>${year}</span>
-      <span>${price}</span>`
-      return this
+      <span>${price}</span>`;
+    return this
   }
 }
