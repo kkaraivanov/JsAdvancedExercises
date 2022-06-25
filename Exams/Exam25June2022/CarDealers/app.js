@@ -34,12 +34,7 @@ function solve() {
     Object.values(obj).forEach(v => v.value = '');
 
     this.lastElementChild.children[0].addEventListener('click', () => {
-      make.value = this.children[0].textContent
-      model.value = this.children[1].textContent
-      year.value = this.children[2].textContent
-      fuel.value = this.children[3].textContent
-      originalCost.value = this.children[4].textContent
-      sellingPrice.value = this.children[5].textContent
+      Object.values(obj).forEach((e, i) => e.value = this.children[i].textContent)
       this.remove()
     });
     this.lastElementChild.children[1].addEventListener('click', () => {
